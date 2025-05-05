@@ -49,7 +49,13 @@ namespace realization {
         }
 #if NGEN_WITH_NETCDF
         else if (forcing_config.provider == "NetCDF"){
-            fp = data_access::NetCDFPerFeatureDataProvider::get_shared_provider(forcing_config.path, forcing_config.simulation_start_t, forcing_config.simulation_end_t, output_stream);
+            // aaraney: where forcing provider is actually setup
+            std::shared_ptr<data_access::NetCDFPerFeatureDataProvider> f;
+            f = data_access::NetCDFPerFeatureDataProvider::get_shared_provider(forcing_config.path, forcing_config.simulation_start_t, forcing_config.simulation_end_t, output_stream);
+            // aaraney: this is not _ideal_ but implements the idea.
+            // refactor in the future.
+            f->hint_shared_provider_id(identifier);
+            fp = f;
         }
 #endif
         else if (forcing_config.provider == "NullForcingProvider"){
