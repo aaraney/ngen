@@ -189,6 +189,7 @@ runs:
           # and with older pybind11 versions, the minimum cmake version is set to 3.4
           # which causes cmake configuration to fail.
           run: |
+            which apt && sudo apt update && sudo apt install clang-17 && export CC=clang && export CXX=clang++ && echo "USING CLANG"
             export BOOST_ROOT="$(pwd)/boost_1_86_0"
             export CFLAGS="-fsanitize=address -O1 -g -fno-omit-frame-pointer -Werror"
             export CXXFLAGS="-fsanitize=address -O1 -g -fno-omit-frame-pointer -pedantic-errors -Werror -Wpessimizing-move -Wparentheses -Wrange-loop-construct -Wsuggest-override"
